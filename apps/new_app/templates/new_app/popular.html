@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>popular</title>
+	</head>
+	<body>
+		<h1>Most Popular Secrets</h1>
+		<a href="/secrets">Back</a> <br>
+		{% for secret in secrets %}
+		<p>
+			{{secret.content}} ({{secret.created_at}}) {{secret.users.count}} likes
+			{% if user == secret.created_by %}
+			<span>You posted this</span>
+			<a href="/delete/{{secret.id}}">Delete</a>
+			{% else %}
+				{% if user in secret.users.all %}
+				<span>You liked this</span>
+				{% else %}
+				<a href="/like/{{secret.id}}">Like</a>
+				{% endif %}
+			{% endif %}
+		</p>
+		{% endfor %}
+	</body>
+</html>
